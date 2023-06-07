@@ -3,6 +3,7 @@ package tests.mobile
 import com.codeborne.selenide.appium.SelenideAppium
 import drivers.AndroidDriverForApiDemos
 import drivers.IOSDriverForApiDemos
+import spock.lang.*
 
 import static com.codeborne.selenide.Condition.visible
 import static com.codeborne.selenide.Configuration.*
@@ -18,7 +19,7 @@ class MobileTest extends BaseTest {
         then:
         echoActivity.messageInputField.shouldBe(visible)
     }
-
+    @Tag('ios')
     def "empty input Alert Login Screen on iOS"() {
         setup:
         browser = IOSDriverForApiDemos.class.getName()

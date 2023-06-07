@@ -26,13 +26,13 @@ dependencies {
     testImplementation 'commons-io:commons-io:2.12.0'
     testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.7'
     // Use the latest Groovy version for building this library
-    implementation 'org.codehaus.groovy:groovy-all:3.0.8'
+    implementation 'org.codehaus.groovy:groovy-all:3.0.17'
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:30.1.1-jre'
 
     // Use the awesome Spock testing and specification framework even with Java
-    testImplementation 'org.spockframework:spock-core:2.0-groovy-3.0'
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
     testImplementation 'junit:junit:4.13.2'
 
     // This dependency is exported to consumers, that is to say found on their compile classpath.
@@ -41,9 +41,8 @@ dependencies {
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
-    systemProperty 'spock.tags', System.getProperty('spock.tags', '')
-    filter {
-       // includeTags System.getProperty('spock.tags', '')
+    useJUnitPlatform() {
+        systemProperty 'spock.tags', System.getProperty('spock.tags', '')
+        includeTags System.getProperty('spock.tags', '')
     }
 }
