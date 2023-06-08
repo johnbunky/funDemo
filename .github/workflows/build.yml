@@ -1,0 +1,21 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+  schedule:
+    - cron: '0 0 1 * *'
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    name: testEmAll 
+    steps:
+
+    - name: Start selenoid
+      uses: Xotabu4/selenoid-github-action@v2
+    - uses: actions/checkout@v2
+
+    - name: signIn/signUp tests
+      run: ./gradlew test --tests "WebTest.compare image"
