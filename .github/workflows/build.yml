@@ -17,5 +17,5 @@ jobs:
       uses: Xotabu4/selenoid-github-action@v2
     - uses: actions/checkout@v2
 
-    - name: signIn/signUp tests
+    - name: compare images tests
       run: ./gradlew test --tests "WebTest.compare image"

@@ -13,10 +13,6 @@ import java.time.Duration
 
 @ParametersAreNonnullByDefault
 class AndroidDriverForApiDemos implements WebDriverProvider{
-    //static String username=  ""
-    //static String accessKey= ""
-
-
     @Override
     @CheckReturnValue
     @Nonnull
@@ -26,14 +22,12 @@ class AndroidDriverForApiDemos implements WebDriverProvider{
                 .setPlatformName('Android')
                 .setPlatformVersion('11.0')
                 .setDeviceName('Android Emulator')
-                //.setDeviceName('Google Pixel 4')
                 .setNewCommandTimeout(Duration.ofSeconds(11))
                 .setFullReset(false)
                 .setApp("/Users/you/Desktop/Projects/funDemo/lib/src/test/resources/TheApp.apk") // TODO project path
-
+        // setApp(System.getProperty("user.dir") + "lib/src/test/resources/TheApp.apk");
         try {
             return new AndroidDriver( new URL("http://127.0.0.1:4723"), options )
-            //return new AndroidDriver(new URL("http://" + username + ":" + accessKey + "@hub-cloud.browserstack.com/wd/hub"), options);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

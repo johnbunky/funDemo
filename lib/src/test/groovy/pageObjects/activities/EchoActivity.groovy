@@ -1,6 +1,6 @@
 package pageObjects.activities
 
-import elements.mobile.InputFields
+import elements.InputFields
 
 class EchoActivity {
     static def messageInputField = InputFields.messageInput

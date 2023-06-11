@@ -1,6 +1,6 @@
 package pageObjects.activities
 
-import elements.mobile.Alerts
+import elements.Alerts
 
 import static com.codeborne.selenide.Selenide.$x
 

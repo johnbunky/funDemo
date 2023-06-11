@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Configuration.*
 import static com.codeborne.selenide.Selenide.closeWebDriver
 import static com.codeborne.selenide.WebDriverRunner.driver
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver
-import static tests.Variables.*
+import static Variables.*
 
 abstract class BaseTest extends Specification{
     // screenshot comparison stuff

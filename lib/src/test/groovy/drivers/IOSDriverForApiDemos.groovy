@@ -13,9 +13,6 @@ import java.time.Duration
 
 @ParametersAreNonnullByDefault
 class IOSDriverForApiDemos implements WebDriverProvider{
-    //static String     username=  "username";
-    //static String     accessKey= "password";
-
     @Override
     @CheckReturnValue
     @Nonnull
@@ -31,7 +28,6 @@ class IOSDriverForApiDemos implements WebDriverProvider{
 
         try {
             return new IOSDriver( new URL("http://127.0.0.1:4723"), options )
-            //return new AndroidDriver(new URL("http://" + username + ":" + accessKey + "@hub-cloud.browserstack.com/wd/hub"), options);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

@@ -1,6 +1,6 @@
 package pageObjects.activities
 
-import elements.mobile.Tabs
+import elements.Tabs
 
 class MainActivity {
     static def echoBoxTab = Tabs.echoBoxTab

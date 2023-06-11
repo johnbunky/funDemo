@@ -1,4 +1,4 @@
-package elements.mobile
+package elements
 
 import static com.codeborne.selenide.appium.SelenideAppium.$x
 

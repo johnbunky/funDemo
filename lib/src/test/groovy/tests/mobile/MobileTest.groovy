@@ -1,17 +1,20 @@
 package tests.mobile
 
 import com.codeborne.selenide.appium.SelenideAppium
-import drivers.AndroidDriverForApiDemos
+import drivers.SauceLabAndroidDriverProvider
 import drivers.IOSDriverForApiDemos
+import drivers.SauceLabIOSDriverProvider
 import spock.lang.*
 
 import static com.codeborne.selenide.Condition.visible
 import static com.codeborne.selenide.Configuration.*
+import static com.codeborne.selenide.Selenide.open
 
 class MobileTest extends BaseTest {
     def "Echo Box tab works well on Android"() {
         setup:
-        browser = AndroidDriverForApiDemos.class.getName()
+        browser = SauceLabAndroidDriverProvider.class.getName()
+        //browser = AndroidDriverForApiDemos.class.getName()
         SelenideAppium.launchApp()
 
         when:
@@ -22,7 +25,8 @@ class MobileTest extends BaseTest {
     @Tag('ios')
     def "empty input Alert Login Screen on iOS"() {
         setup:
-        browser = IOSDriverForApiDemos.class.getName()
+        browser = SauceLabIOSDriverProvider.class.getName()
+        //browser = IOSDriverForApiDemos.class.getName()
         SelenideAppium.launchApp()
 
         when:

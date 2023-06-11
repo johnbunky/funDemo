@@ -1,4 +1,4 @@
-package elements.mobile
+package elements
 
 import io.appium.java_client.AppiumBy
 
