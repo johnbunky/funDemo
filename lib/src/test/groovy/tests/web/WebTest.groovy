@@ -8,11 +8,11 @@ import static org.junit.Assert.assertFalse
 
 class WebTest extends BaseTest{
     def 'compare image'() {
-        def actualScreenshot = $('[src="img/avatar-blank.jpg"]')
         given:
+        def actualScreenshot = brokenImagesPage.brokenImage
         open baseUrl
         when:
-        $('[href="/broken_images"]').click()
+        mainPage.brokenImageTab.click() 
         then:
         assertFalse("Screenshot has difference", compareScreenshots('expectedScreenshot', actualScreenshot).hasDiff())
     }

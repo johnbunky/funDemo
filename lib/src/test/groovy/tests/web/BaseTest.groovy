@@ -8,6 +8,7 @@ import ru.yandex.qatools.ashot.comparison.ImageDiffer
 import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider
 import spock.lang.Specification
 import javax.imageio.ImageIO
+import pageObjects.pages.*
 
 import static com.codeborne.selenide.Configuration.*
 import static com.codeborne.selenide.Selenide.closeWebDriver
@@ -16,6 +17,8 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver
 import static Variables.*
 
 abstract class BaseTest extends Specification{
+    def mainPage = MainPage
+    def brokenImagesPage = BrokenImagesPage
     // screenshot comparison stuff
     static def baseline = 'src/test/resources/baselineImages/'
     static def comparison = 'build/reports/tests/screenshots/'
