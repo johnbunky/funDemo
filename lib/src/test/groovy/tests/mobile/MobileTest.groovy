@@ -1,9 +1,7 @@
 package tests.mobile
 
 import com.codeborne.selenide.appium.SelenideAppium
-import drivers.SauceLabAndroidDriverProvider
-import drivers.IOSDriverForApiDemos
-import drivers.SauceLabIOSDriverProvider
+import drivers.*
 import spock.lang.*
 
 import static com.codeborne.selenide.Condition.visible
@@ -13,8 +11,8 @@ import static com.codeborne.selenide.Selenide.open
 class MobileTest extends BaseTest {
     def "Echo Box tab works well on Android"() {
         setup:
-        browser = SauceLabAndroidDriverProvider.class.getName()
-        //browser = AndroidDriverForApiDemos.class.getName()
+        //browser = SauceLabAndroidDriverProvider.class.getName()
+        browser = AndroidDriverForApiDemos.class.getName()
         SelenideAppium.launchApp()
 
         when:

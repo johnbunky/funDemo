@@ -1,14 +1,22 @@
+import ba.klika.tasks.UploadXmlReportTask
+import groovyx.net.http.*
+
 plugins {
     // Apply the groovy Plugin to add support for Groovy.
     id 'groovy'
 
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
+
+    id "ba.klika.xray" version "1.0"
 }
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    maven {
+        url('https://maven.xpand-it.com/artifactory/releases')
+    }
 }
 
 dependencies {
@@ -18,6 +26,7 @@ dependencies {
     testImplementation 'commons-io:commons-io:2.12.0'
     testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.7'
     implementation group: 'ru.yandex.qatools.ashot', name: 'ashot', version: '1.5.4'
+    implementation group: 'app.getxray', name: 'xray-testng-extensions', version: '0.2.0-beta'
     // Use the latest Groovy version for building this library
     implementation 'org.codehaus.groovy:groovy-all:3.0.17'
 
@@ -42,4 +51,61 @@ tasks.named('test') {
         //systemProperty 'spock.tags', System.getProperty('spock.tags', '')
         //includeTags System.getProperty('spock.tags', '')
    // }
+}
+
+task uploadReport {
+        updateResults('2')
+}
+
+def updateResults(def testExecNumber) {
+    println(System.getenv('CLIENT_ID'))
+    println(System.getenv('CLIENT_SECRET'))
+    RESTClient client = new RESTClient('https://xray.cloud.getxray.app')
+    def callResponse = catchHttpExceptions {
+        client.post(
+                path: "/api/v1/authenticate",
+                body:
+                        [
+                                client_id    : System.getenv('CLIENT_ID'),
+                                client_secret: System.getenv('CLIENT_SECRET'),
+                        ],
+                contentType: ContentType.JSON,
+                requestContentType: ContentType.JSON)
+    }
+// ATATT3xFfGF0wbTN5LBgqYC-L0WxjaoJooHVEAM9iL4z1axfvO9Tp5EOHqDl-liLlcsFdNvc5I9p-Yfi-JdwMUG9diUkqG4GS5366fHn1hLD_QEfdq3vGdVjK7HkkUWiPtqXkgq4MkhmEVwW49Vg1CMhnyzQpFRsFyrGJMDkkbD66WnONP8lHes=C6483A02
+    if (callResponse.status == 200) {
+        def token = callResponse.getData()
+        uploadXML(token as String, "FUN-${testExecNumber}", "lib/build/test-results/test/TEST-tests.web.WebTest.xml")
+    } else {
+        print "Error trying to authenticate"
+    }
+}
+
+def uploadXML(String token, String testExecution, String filePath) {
+    RESTClient client = new RESTClient('https://xray.cloud.getxray.app')
+    def callResponse = catchHttpExceptions {
+        client.post(
+                requestContentType: ContentType.XML,
+                path: '/api/v1/import/execution/junit',
+                query: [testExecKey: testExecution],
+                body: new File(filePath).text,
+                headers: [
+                        Authorization: "Bearer " + token,
+                ],
+        )
+    }
+
+    if (callResponse.status == 200) {
+        print "XML Upload Successful"
+    } else {
+        print 'XML Upload fail'
+    }
+}
+
+protected HttpResponseDecorator catchHttpExceptions(Closure callClosure) {
+    try {
+        return callClosure.call()
+    } catch (HttpResponseException responseException) {
+        return responseException.response
+    }
 }
