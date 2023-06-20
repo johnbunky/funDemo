@@ -54,12 +54,10 @@ tasks.named('test') {
 }
 
 task uploadReport {
-        updateResults('2')
+        //updateResults('2')
 }
 
 def updateResults(def testExecNumber) {
-    println(System.getenv('CLIENT_ID'))
-    println(System.getenv('CLIENT_SECRET'))
     RESTClient client = new RESTClient('https://xray.cloud.getxray.app')
     def callResponse = catchHttpExceptions {
         client.post(
@@ -75,7 +73,7 @@ def updateResults(def testExecNumber) {
 // ATATT3xFfGF0wbTN5LBgqYC-L0WxjaoJooHVEAM9iL4z1axfvO9Tp5EOHqDl-liLlcsFdNvc5I9p-Yfi-JdwMUG9diUkqG4GS5366fHn1hLD_QEfdq3vGdVjK7HkkUWiPtqXkgq4MkhmEVwW49Vg1CMhnyzQpFRsFyrGJMDkkbD66WnONP8lHes=C6483A02
     if (callResponse.status == 200) {
         def token = callResponse.getData()
-        uploadXML(token as String, "FUN-${testExecNumber}", "lib/build/test-results/test/TEST-tests.web.WebTest.xml")
+        uploadXML(token as String, "FUN-${testExecNumber}", "lib/build/test-results/test/TEST-tests.mobile.MobileTest.xml")
     } else {
         print "Error trying to authenticate"
     }

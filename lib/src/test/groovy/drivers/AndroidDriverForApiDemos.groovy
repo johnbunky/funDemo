@@ -24,8 +24,7 @@ class AndroidDriverForApiDemos implements WebDriverProvider{
                 .setDeviceName('Android Emulator')
                 .setNewCommandTimeout(Duration.ofSeconds(11))
                 .setFullReset(false)
-                .setApp("/Users/you/Desktop/Projects/funDemo/lib/src/test/resources/TheApp.apk") // TODO project path
-        // setApp(System.getProperty("user.dir") + "lib/src/test/resources/TheApp.apk");
+                .setApp(System.getProperty("user.dir") + "/src/test/resources/TheApp.apk");
         try {
             return new AndroidDriver( new URL("http://127.0.0.1:4723"), options )
         } catch (MalformedURLException e) {

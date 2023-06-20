@@ -24,8 +24,7 @@ class IOSDriverForApiDemos implements WebDriverProvider{
                 .setDeviceName('iPhone 8')
                 .setNewCommandTimeout(Duration.ofSeconds(11))
                 .setFullReset(false)
-                .setApp("/Users/you/Desktop/Projects/funDemo/lib/src/test/resources/TheApp.app.zip")
-
+                .setApp(System.getProperty("user.dir") + "/src/test/resources/TheApp.app.zip")
         try {
             return new IOSDriver( new URL("http://127.0.0.1:4723"), options )
         } catch (MalformedURLException e) {

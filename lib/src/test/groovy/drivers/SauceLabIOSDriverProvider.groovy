@@ -2,6 +2,7 @@ package drivers
 
 import com.codeborne.selenide.WebDriverProvider
 import io.appium.java_client.android.AndroidDriver
+import io.appium.java_client.ios.IOSDriver
 import org.openqa.selenium.Capabilities
 import org.openqa.selenium.MutableCapabilities
 import org.openqa.selenium.WebDriver
@@ -31,7 +32,7 @@ class SauceLabIOSDriverProvider implements WebDriverProvider {
         caps.setCapability("sauce:options", sauceOptions)
 
         try {
-            return new AndroidDriver(new URL("https://ondemand.eu-central-1.saucelabs.com:443/wd/hub"), caps);
+            return new IOSDriver(new URL("https://ondemand.eu-central-1.saucelabs.com:443/wd/hub"), caps);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

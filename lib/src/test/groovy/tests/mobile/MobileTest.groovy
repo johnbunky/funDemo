@@ -9,10 +9,10 @@ import static com.codeborne.selenide.Configuration.*
 import static com.codeborne.selenide.Selenide.open
 
 class MobileTest extends BaseTest {
-    def "Echo Box tab works well on Android"() {
+    def "Echo Box tab works well"() {
         setup:
-        //browser = SauceLabAndroidDriverProvider.class.getName()
-        browser = AndroidDriverForApiDemos.class.getName()
+        //browser = AndroidDriverForApiDemos.class.getName()
+        browser = IOSDriverForApiDemos.class.getName()
         SelenideAppium.launchApp()
 
         when:
@@ -21,10 +21,9 @@ class MobileTest extends BaseTest {
         echoActivity.messageInputField.shouldBe(visible)
     }
     @Tag('ios')
-    def "empty input Alert Login Screen on iOS"() {
+    def "empty input  Login Screen alert"() {
         setup:
         browser = SauceLabIOSDriverProvider.class.getName()
-        //browser = IOSDriverForApiDemos.class.getName()
         SelenideAppium.launchApp()
 
         when:
