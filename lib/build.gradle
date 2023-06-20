@@ -42,7 +42,7 @@ dependencies {
 }
 
 tasks.named('test') {
-    systemProperty 'env', System.getProperty('env', 'remote')
+    systemProperty 'env', System.getProperty('env', 'selenoid')
     systemProperty 'browser', System.getProperty('browser', 'chrome')
     systemProperty 'baseline', System.getProperty('baseline', 'baseline')
     // Use JUnit Platform for unit tests.

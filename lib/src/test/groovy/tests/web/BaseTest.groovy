@@ -43,6 +43,8 @@ abstract class BaseTest extends Specification{
             case 'remote':
                 remote = 'http://52.14.11.186:4444/wd/hub'
                 break
+            default:
+                println("Unknown environment")
         }
 
         browser = browserName
