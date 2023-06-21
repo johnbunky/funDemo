@@ -14,7 +14,7 @@ abstract class BaseTest extends Specification {
     def loginActivity = LoginActivity
 
     void setupSpec() {
-        def env = System.getProperty('env')
+        def env = System.getProperty('mobile')
 
         switch (env) {
             case "android_local":
