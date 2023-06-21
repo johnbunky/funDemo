@@ -41,7 +41,7 @@ There are mobile environments:
 
 - ios_remote
 
-`gradle test --tests "MobileTest.Echo Box tab works well" -Denv=ios_remote`
+`gradle test --tests "MobileTest.Echo Box tab works well" -Dmobile=ios_remote`
 
 # SCREENSHOTS COMPARISON
 

@@ -42,7 +42,7 @@ dependencies {
 }
 
 tasks.named('test') {
-    systemProperty 'env', System.getProperty('env', 'selenoid')
+    systemProperty 'env', System.getProperty('env', 'remote')
     systemProperty 'mobile', System.getProperty('mobile', 'ios_remote')
     systemProperty 'browser', System.getProperty('browser', 'chrome')
     systemProperty 'baseline', System.getProperty('baseline', 'baseline')
