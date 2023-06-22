@@ -46,12 +46,11 @@ tasks.named('test') {
     systemProperty 'mobile', System.getProperty('mobile', 'ios_remote')
     systemProperty 'browser', System.getProperty('browser', 'chrome')
     systemProperty 'baseline', System.getProperty('baseline', 'baseline')
+    systemProperty 'spock.tags', System.getProperty('spock.tags', '')
     // Use JUnit Platform for unit tests.
-    useJUnitPlatform()
-            //{
-        //systemProperty 'spock.tags', System.getProperty('spock.tags', '')
-        //includeTags System.getProperty('spock.tags', '')
-   // }
+    useJUnitPlatform() {
+        includeTags System.getProperty('spock.tags', '')
+   }
 }
 
 task uploadReport {

@@ -49,11 +49,17 @@ There are mobile environments:
 
 `gradle test --tests "WebTest.compare image"`  -- run comparison
 
+# TAGS
+
+There is an ability to tagged tests in the same way
+@Tag('ios')
+..........
+
+`gradle test -Dspock.tags=ios` -- run tagged tests
+
 TODO: tune reporting
 TODO: tune cross-platform testing with SauceLabs
 TODO: complete readme
-TODO: figure out what wrong with tags
-`gradle test -Dspock.tags=ios`
 TODO: slack integration
 TODO: any ideas ......
 
