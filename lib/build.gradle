@@ -41,6 +41,8 @@ dependencies {
     api 'org.apache.commons:commons-math3:3.6.1'
 }
 
+test.outputs.upToDateWhen {false} 
+
 tasks.named('test') {
     systemProperty 'env', System.getProperty('env', 'remote')
     systemProperty 'mobile', System.getProperty('mobile', 'ios_remote')
@@ -49,8 +51,13 @@ tasks.named('test') {
     systemProperty 'spock.tags', System.getProperty('spock.tags', '')
     // Use JUnit Platform for unit tests.
     useJUnitPlatform() {
-        includeTags System.getProperty('spock.tags', '')
-   }
+        if (System.getProperty('spock.tags', '') != '') {
+            includeTags System.getProperty('spock.tags', '')
+        }
+        testLogging {
+           events "passed", "skipped", "failed"
+        }
+    }
 }
 
 task uploadReport {
