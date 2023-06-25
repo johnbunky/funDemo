@@ -1,0 +1,67 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.com/object1673447687.json",
+  "title": "Root",
+  "type": "object",
+  "required": [
+    "message",
+    "errors"
+  ],
+  "properties": {
+    "message": {
+      "$id": "#root/message",
+      "title": "Message",
+      "type": "string",
+      "default": "",
+      "examples": [
+        "The email field is required. (and 1 more error)"
+      ],
+      "pattern": "^.*$"
+    },
+    "errors": {
+      "$id": "#root/errors",
+      "title": "Errors",
+      "type": "object",
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "email": {
+          "$id": "#root/errors/email",
+          "title": "Email",
+          "type": "array",
+          "default": [],
+          "items":{
+            "$id": "#root/errors/email/items",
+            "title": "Items",
+            "type": "string",
+            "default": "",
+            "examples": [
+              "The email field is required."
+            ],
+            "pattern": "^.*$"
+          }
+        },
+        "password": {
+          "$id": "#root/errors/password",
+          "title": "Password",
+          "type": "array",
+          "default": [],
+          "items":{
+            "$id": "#root/errors/password/items",
+            "title": "Items",
+            "type": "string",
+            "default": "",
+            "examples": [
+              "The password field is required."
+            ],
+            "pattern": "^.*$"
+          }
+        }
+      }
+    }
+
+  }
+}

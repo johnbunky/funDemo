@@ -27,6 +27,16 @@ dependencies {
     testRuntimeOnly 'org.slf4j:slf4j-simple:2.0.7'
     implementation group: 'ru.yandex.qatools.ashot', name: 'ashot', version: '1.5.4'
     implementation group: 'app.getxray', name: 'xray-testng-extensions', version: '0.2.0-beta'
+
+    implementation 'com.manybrain:mailinator-client:1.6'
+
+    testImplementation 'io.rest-assured:rest-assured:4.4.0'
+    testImplementation 'io.rest-assured:json-path:4.4.0'
+    testImplementation 'io.rest-assured:xml-path:4.4.0'
+
+    testImplementation group: 'io.rest-assured', name: 'json-schema-validator', version: '4.4.0'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.2'
+
     // Use the latest Groovy version for building this library
     implementation 'org.codehaus.groovy:groovy-all:3.0.17'
 
@@ -80,7 +90,7 @@ def updateResults(def testExecNumber) {
 // ATATT3xFfGF0wbTN5LBgqYC-L0WxjaoJooHVEAM9iL4z1axfvO9Tp5EOHqDl-liLlcsFdNvc5I9p-Yfi-JdwMUG9diUkqG4GS5366fHn1hLD_QEfdq3vGdVjK7HkkUWiPtqXkgq4MkhmEVwW49Vg1CMhnyzQpFRsFyrGJMDkkbD66WnONP8lHes=C6483A02
     if (callResponse.status == 200) {
         def token = callResponse.getData()
-        uploadXML(token as String, "FUN-${testExecNumber}", "lib/build/test-results/test/TEST-tests.mobile.MobileTest.xml")
+        uploadXML(token as String, "FUN-${testExecNumber}", "lib/build/test-results/test/TEST-tests.api.ApiTest.xml")
     } else {
         print "Error trying to authenticate"
     }
