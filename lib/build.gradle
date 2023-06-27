@@ -71,7 +71,7 @@ tasks.named('test') {
 }
 
 task uploadReport {
-        //updateResults('2')
+        updateResults('2')
 }
 
 def updateResults(def testExecNumber) {
@@ -90,16 +90,22 @@ def updateResults(def testExecNumber) {
 // ATATT3xFfGF0wbTN5LBgqYC-L0WxjaoJooHVEAM9iL4z1axfvO9Tp5EOHqDl-liLlcsFdNvc5I9p-Yfi-JdwMUG9diUkqG4GS5366fHn1hLD_QEfdq3vGdVjK7HkkUWiPtqXkgq4MkhmEVwW49Vg1CMhnyzQpFRsFyrGJMDkkbD66WnONP8lHes=C6483A02
     if (callResponse.status == 200) {
         def token = callResponse.getData()
-        uploadXML(token as String, "FUN-${testExecNumber}", "lib/build/test-results/test/TEST-tests.api.ApiTest.xml")
+        // find and collect report xml files
+        def xmlFiles = fileTree(dir: 'build/test-results/test', include: '**/TEST-*.xml')
+        List<String> filePaths = xmlFiles.files.collect { it.path }
+        print "Uploading ${filePaths.size()} XML files"
+        uploadXML(token as String, "FUN-${testExecNumber}", filePaths)
     } else {
         print "Error trying to authenticate"
     }
 }
 
-def uploadXML(String token, String testExecution, String filePath) {
+def uploadXML(String token, String testExecution, List<String> filePaths) {
     RESTClient client = new RESTClient('https://xray.cloud.getxray.app')
-    def callResponse = catchHttpExceptions {
-        client.post(
+    for (String filePath : filePaths) {
+        println filePath
+        def callResponse = catchHttpExceptions {
+            client.post(
                 requestContentType: ContentType.XML,
                 path: '/api/v1/import/execution/junit',
                 query: [testExecKey: testExecution],
@@ -107,14 +113,15 @@ def uploadXML(String token, String testExecution, String filePath) {
                 headers: [
                         Authorization: "Bearer " + token,
                 ],
-        )
-    }
+            )
+         }   
 
-    if (callResponse.status == 200) {
-        print "XML Upload Successful"
-    } else {
-        print 'XML Upload fail'
-    }
+        if (callResponse.status == 200) {
+            print "XML Upload Successful"
+        } else {
+            print 'XML Upload fail'
+        }
+    }    
 }
 
 protected HttpResponseDecorator catchHttpExceptions(Closure callClosure) {
