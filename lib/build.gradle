@@ -71,8 +71,11 @@ tasks.named('test') {
 }
 
 task uploadReport {
-        updateResults('2')
+        // updateResults('2')
 }
+
+def clientId = System.getenv('CLIENT_ID')
+def clientSecret = System.getenv('CLIENT_SECRET')
 
 def updateResults(def testExecNumber) {
     RESTClient client = new RESTClient('https://xray.cloud.getxray.app')
@@ -129,5 +132,71 @@ protected HttpResponseDecorator catchHttpExceptions(Closure callClosure) {
         return callClosure.call()
     } catch (HttpResponseException responseException) {
         return responseException.response
+    }
+}
+
+task importJunitResultsToXrayCloud() {
+    description 'Imports Junit test results to Xray Test Management for Jira Cloud.'
+    // dependsOn 'test'
+ 
+    def xrayApiBaseUrl = 'https://xray.cloud.getxray.app/api/v2'
+    // the following variables can be defined locally or in gradle.properties
+    //  - clientId, clientSecret
+    //  - reportFormat, projectKey version, revision, testPlanKey, testExecKey, testEnvironment
+ 
+        def xmlFiles = fileTree(dir: 'build/test-results/test', include: '**/TEST-*.xml')
+        List<String> filePaths = xmlFiles.files.collect { it.path }
+  
+    doLast {
+        new ByteArrayOutputStream().withStream { os ->
+            def result = exec {
+                ignoreExitValue = true
+                commandLine 'curl', '--silent', '--fail-with-body', '-H','Content-Type: application/json', '-X','POST', '--data', "{ \"client_id\": \"${clientId}\",\"client_secret\": \"${clientSecret}\" }", "${xrayApiBaseUrl}/authenticate"
+                standardOutput = os
+                }
+                if (result.getExitValue() != 0) {
+                        println "ERROR: problem authenticating"
+                } else {
+                        def token = os.toString().replaceAll("\"","")
+                        println "Authenticated with Xray!"
+     
+                    for (String filePath : filePaths) {
+
+                            new ByteArrayOutputStream().withStream { os2 ->
+                                def result2 = exec {
+                                ignoreExitValue = true
+ 
+                                def url = "${xrayApiBaseUrl}/import/execution/${reportFormat}?"
+                                if (projectKey?.trim()) {
+                                    url += "&projectKey=${projectKey}"
+                                }
+                                if (revision?.trim()) {
+                                    url += "&revision=${revision}"
+                                }
+                                if (testPlanKey?.trim()) {
+                                    url += "&testPlanKey=${testPlanKey}"
+                                }
+                                if (testExecKey?.trim()) {
+                                    url += "&testExecKey=${testExecKey}"
+                                }
+                                if (testEnvironment?.trim()) {
+                                    url += "&testEnvironments=${testEnvironment}"
+                                }
+ 
+                                commandLine 'curl', '--silent', '--fail-with-body', '-H','Content-Type: application/xml', '-X','POST', '-H', "Authorization: Bearer ${token}", '--data', "@${filePath}", url
+                                standardOutput = os2
+                                }
+                                if (result2.getExitValue() != 0) {
+                                        println "ERROR: problem importing results to Xray"
+                                        println os2.toString()
+                                } else {
+                                        println "Resuls imported to Xray!"
+                                        println os2.toString()
+                                }
+                        }
+                    }    
+                }
+        }
+ 
     }
 }
