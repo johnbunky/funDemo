@@ -24,6 +24,7 @@ class SauceLabIOSDriverProvider implements WebDriverProvider {
         caps.setCapability("appium:deviceOrientation", "portrait")
         caps.setCapability("appium:platformVersion", "16.1")
         caps.setCapability("appium:automationName", "XCUITest")
+        caps.setCapability("XCUITestServerInstallTimeout", 60000)
         MutableCapabilities sauceOptions = new MutableCapabilities()
         sauceOptions.setCapability("username", System.getenv('USERNAME'))
         sauceOptions.setCapability("accessKey", System.getenv('ACCESS_KEY'))

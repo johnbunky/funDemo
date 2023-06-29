@@ -57,7 +57,6 @@ There is an ability to tagged tests in the same way
 
 `gradle test -Dspock.tags=ios` -- run tagged tests
 
-TODO: tune reporting
 TODO: tune cross-platform testing with SauceLabs
 TODO: complete readme
 TODO: slack integration

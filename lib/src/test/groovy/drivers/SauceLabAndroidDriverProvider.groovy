@@ -25,7 +25,7 @@ class SauceLabAndroidDriverProvider implements WebDriverProvider{
         caps.setCapability("appium:deviceOrientation", "portrait")
         caps.setCapability("appium:platformVersion", "12.0")
         caps.setCapability("appium:automationName", "UiAutomator2")
-        //caps.setCapability("uiautomator2ServerInstallTimeout", 60000)
+        caps.setCapability("uiautomator2ServerInstallTimeout", 60000)
         MutableCapabilities sauceOptions = new MutableCapabilities();
         sauceOptions.setCapability("username", System.getenv('USERNAME'))
         sauceOptions.setCapability("accessKey", System.getenv('ACCESS_KEY'))
