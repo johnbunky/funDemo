@@ -1,5 +1,6 @@
 package tests.api
 
+import spock.lang.*
 import io.restassured.http.ContentType
 import org.apache.commons.lang3.RandomStringUtils
 import org.junit.jupiter.api.Test
@@ -29,6 +30,7 @@ class ApiTest {
             zip : 88888
     ]
 
+    @Tag('ttt')
     @Test
     void 'success valid registration'() {
         given().

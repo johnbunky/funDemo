@@ -1,6 +1,5 @@
 package tests.mobile
 
-import spock.lang.*
 import static com.codeborne.selenide.Condition.visible
 
 class MobileTest extends BaseTest {
@@ -10,7 +9,7 @@ class MobileTest extends BaseTest {
         then:
         echoActivity.messageInputField.shouldBe(visible)
     }
-    @Tag('ttt')
+    
     def "empty input  Login Screen alert"() {
         when:
         mainActivity.loginScreenTab.click()
